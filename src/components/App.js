@@ -1,34 +1,32 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
 import SplashPage from '../components/Splashpage'
-import Register from './Register'
-import Login from '../components/Login'
+import LoginForm from './LoginForm'
+import RegistrationForm from './RegistrationForm'
 
-function App() {
+const App = () => {
     return (
-        <Router>
             <div className="App">
                 <Navbar />
                 <Route
-                exact
-                path="/"
-                component={SplashPage} 
+                    path='/'
+                    exact
+                    render={SplashPage}
                 />
                 <Route
-                exact
-                path="/register"
-                component={Register}
+                    path='/login'
+                    exact
+                    component={LoginForm}
                 />
                 <Route
-                exact
-                path="/login"
-                component={Login}
+                    path='/register'
+                    exact
+                    component={RegistrationForm}
                 />
             </div>
-        </Router>
-    );
+    )
 }
 
 export default App;
