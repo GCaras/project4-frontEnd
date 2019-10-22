@@ -1,8 +1,14 @@
 import React from 'react';
-import useForm from '../Hooks/LoginFormHook'
+import useForm from '../Hooks/useLoginFormHook'
+import validate from '../Hooks/useEmailValidationRules'
+
+const errorStyle = {
+    color: 'red',
+    fontSize: '10px'
+}
 
 const LoginForm = () => {
-    const { values, handleLoginChange, handleLoginSubmit } = useForm({email: '', password: ''}, login)
+    const { values, errors, handleLoginChange, handleLoginSubmit } = useForm(login, validate)
 
     function login() {
         console.log(values)
@@ -20,9 +26,12 @@ const LoginForm = () => {
                             type="email"
                             name="email"
                             onChange={handleLoginChange}
-                            value={values.email}
+                            value={values.email || ''}
                             required
                         />
+                        {errors.email && (
+                            <p style={errorStyle}>{errors.email}</p>
+                        )}
                     </div>
                 </div>
                 <div>
@@ -33,7 +42,7 @@ const LoginForm = () => {
                             type="current-password"
                             name="password"
                             onChange={handleLoginChange}
-                            value={values.password}
+                            value={values.password || ''}
                             required
                             />
                     </div>
