@@ -1,11 +1,22 @@
 import React from 'react';
-import useForm from '../Hooks/useLoginFormHook'
-import validate from '../Hooks/useEmailValidationRules'
+import useForm from '../hooks/useLoginFormHook'
+import validate from '../hooks/useEmailValidationRules'
+import styled from 'styled-components'
 
 const errorStyle = {
     color: 'red',
     fontSize: '10px'
 }
+
+const StyledLoginContainer = styled.section`
+    background-color: lightskyblue;
+    border: 2px solid black;
+    padding: 10px;
+`
+
+const StyledInputPiece = styled.div`
+    margin: 10px;
+`
 
 const LoginForm = () => {
     const { values, errors, handleLoginChange, handleLoginSubmit } = useForm(login, validate)
@@ -16,9 +27,10 @@ const LoginForm = () => {
 
     return (
         <div>
+            <StyledLoginContainer>
             <form onSubmit={handleLoginSubmit}>
-                <h2>Login</h2>
-                <div>
+                <h3>Login</h3>
+                <StyledInputPiece>
                     <label>Email Address</label>
                     <div>
                         <input 
@@ -33,8 +45,8 @@ const LoginForm = () => {
                             <p style={errorStyle}>{errors.email}</p>
                         )}
                     </div>
-                </div>
-                <div>
+                </StyledInputPiece>
+                <StyledInputPiece>
                     <label>Password</label>
                     <div>
                         <input 
@@ -46,9 +58,10 @@ const LoginForm = () => {
                             required
                             />
                     </div>
-                </div>
+                </StyledInputPiece>
                 <button type="submit">Login</button>
             </form>
+            </StyledLoginContainer>
         </div>
     );
 };

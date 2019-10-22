@@ -1,23 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from 'styled-components'
+
+const StyledNavContainer = styled.nav`
+    align-items: center;
+    background-color: lightskyblue;
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+    width: 100vw;
+    text-align: center;
+`
 
 function Navbar() {
     return (
-        <div className="navbar-fixed">
-            <nav className="z-depth-0">
+        <div>
+            <StyledNavContainer className="z-depth-0">
                 <div className="nav-wrapper white">
-                    <Link
-                        to="/"
-                        style={{
-                        fontFamily: "monospace"
-                        }}
-                        className="col s5 brand-logo center black-text"
-                        >
-                        {/* <i className="material-icons">code</i> */}
-                        dote
+                    <Link to="/">
+                        <h2>dote</h2>
                     </Link>
                 </div>
-            </nav>
+            </StyledNavContainer>
         </div>
     );
 }

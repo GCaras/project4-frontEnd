@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const useRegistrationForm = (callback, validate) => {
+const useRegistrationForm = (initialValues, callback) => {
 
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [values, setValues] = useState(initialValues);
 
   const handleRegistrationSubmit = (event) => {
     if (event) event.preventDefault();
-    setIsSubmitting(true);
-    setErrors(validate(values));
+      callback();
   };
 
   const handleRegistrationChange = (event) => {
@@ -17,17 +14,10 @@ const useRegistrationForm = (callback, validate) => {
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
   };
 
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
-    }
-  }, [errors]);
-
   return {
     handleRegistrationChange,
     handleRegistrationSubmit,
     values,
-    errors
   }
 };
 

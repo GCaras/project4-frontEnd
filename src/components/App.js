@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Route } from 'react-router-dom'
 
 import Navbar from '../components/Navbar'
@@ -6,10 +7,19 @@ import SplashPage from '../components/Splashpage'
 import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
 
+const StyledAppContainer =styled.main`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    text-align: center;
+`
+
 const App = () => {
     return (
-            <div className="App">
-                <Navbar />
+        <div className="App">
+            <Navbar />
+            <StyledAppContainer>
                 <Route
                     path='/'
                     exact
@@ -25,7 +35,8 @@ const App = () => {
                     exact
                     component={RegistrationForm}
                 />
-            </div>
+            </StyledAppContainer>
+        </div>
     )
 }
 

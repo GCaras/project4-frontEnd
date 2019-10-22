@@ -1,14 +1,18 @@
-import React from 'react';
-import useRegistrationForm from '../Hooks/useRegistrationFormHooks'
-import validate from '../Hooks/useEmailValidationRules'
+import React from 'react'
+import useRegistrationForm from '../hooks/useRegistrationFormHooks'
+import styled from 'styled-components'
 
-const errorStyle = {
-    color: 'red',
-    fontSize: '10px'
-}
+const StyledRegistrationContainer = styled.section`
+    background-color: lightskyblue;
+    border: 2px solid black;
+    padding: 10px;
+`
+const StyledInputPiece = styled.div`
+    margin: 10px;
+`
 
 const RegistrationForm = () => {
-    const { values, errors, handleRegistrationChange, handleRegistrationSubmit } = useRegistrationForm({}, register, validate)
+    const { values, handleRegistrationChange, handleRegistrationSubmit } = useRegistrationForm({username: '', email: '', password: '', confirmPassword: ''}, register)
 
     function register() {
         console.log(values)
@@ -16,61 +20,60 @@ const RegistrationForm = () => {
 
     return (
         <div className="box">
-            <form onSubmit={handleRegistrationSubmit}>
-                <h2>Register</h2>
-                <div>
-                    <label>Username</label>
-                    <div>
-                        <input
-                            type="username"
-                            name="username"
-                            onChange={handleRegistrationChange}
-                            value={values.username || ''}
-                            required
+            <StyledRegistrationContainer>
+                <form onSubmit={handleRegistrationSubmit}>
+                    <h2>Register</h2>
+                    <StyledInputPiece>
+                        <label>Username</label>
+                        <div>
+                            <input
+                                type="username"
+                                name="username"
+                                onChange={handleRegistrationChange}
+                                value={values.username}
+                                required
+                                />
+                        </div>
+                    </StyledInputPiece>
+                    <StyledInputPiece>
+                        <label>Email Address</label>
+                        <div>
+                            <input
+                                type="email"
+                                name="email"
+                                onChange={handleRegistrationChange}
+                                value={values.email}
+                                required
                             />
-                    </div>
-                </div>
-                <div>
-                    <label>Email Address</label>
-                    <div>
-                        <input 
-                            type="email"
-                            name="email"
-                            onChange={handleRegistrationChange}
-                            value={values.email || ''}
-                            required
-                        />
-                        {errors.email && (
-                            <p style={errorStyle}>{errors.email}</p>
-                        )}
-                    </div>
-                </div>
-                <div>
-                    <label>Password</label>
-                    <div>
-                        <input
-                            type="new-password"
-                            name="password"
-                            onChange={handleRegistrationChange}
-                            value={values.password || ''}
-                            required
-                            />
-                    </div>
-                </div>
-                <div>
-                    <label>Confirm Password</label>
-                    <div>
-                        <input
-                            type="new-password"
-                            name="password2"
-                            onChange={handleRegistrationChange}
-                            value={values.password2 || ''}
-                            required
-                            />
-                    </div>
-                </div>
-                <button type="submit">Register</button>
-            </form>
+                        </div>
+                    </StyledInputPiece>
+                    <StyledInputPiece>
+                        <label>Password</label>
+                        <div>
+                            <input
+                                type="new-password"
+                                name="password"
+                                onChange={handleRegistrationChange}
+                                value={values.password}
+                                required
+                                />
+                        </div>
+                    </StyledInputPiece>
+                    <StyledInputPiece>
+                        <label>Confirm Password</label>
+                        <div>
+                            <input
+                                type="new-password"
+                                name="confirmPassword"
+                                onChange={handleRegistrationChange}
+                                value={values.confirmPassword}
+                                required
+                                />
+                        </div>
+                    </StyledInputPiece>
+                    <button type="submit">Register</button>
+                </form>
+            </StyledRegistrationContainer>
         </div>
     );
 };
