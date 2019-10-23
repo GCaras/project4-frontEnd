@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Route } from 'react-router-dom'
+import { UserProvider } from '../context/UserContext'
 
 import Navbar from '../components/Navbar'
 import SplashPage from '../components/Splashpage'
@@ -16,26 +17,30 @@ const StyledAppContainer =styled.main`
 `
 
 const App = () => {
+    const user = { username: 'gcaras', loggedIn: true }
+
     return (
-        <div className="App">
-            <Navbar />
-            <StyledAppContainer>
-                <Route
-                    path='/'
-                    exact
-                    render={SplashPage}
-                />
-                <Route
-                    path='/login'
-                    exact
-                    component={LoginForm}
-                />
-                <Route
-                    path='/register'
-                    exact
-                    component={RegistrationForm}
-                />
-            </StyledAppContainer>
+        <div>
+            <UserProvider value={user}>
+                <Navbar />
+                <StyledAppContainer>
+                    <Route
+                        path='/'
+                        exact
+                        render={SplashPage}
+                    />
+                    <Route
+                        path='/login'
+                        exact
+                        component={LoginForm}
+                    />
+                    <Route
+                        path='/register'
+                        exact
+                        component={RegistrationForm}
+                    />
+                </StyledAppContainer>
+            </UserProvider>
         </div>
     )
 }
