@@ -7,20 +7,24 @@ const StyledNavContainer = styled.nav`
     background-color: lightskyblue;
     border-bottom: 2px solid black;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     height: 50px;
     width: 100vw;
     text-align: center;
 `
 
-function Navbar() {
+const Navbar = () => {
     return (
         <div>
             <StyledNavContainer className="z-depth-0">
                 <div className="nav-wrapper white">
                     <Link to="/">
                         <h2>dote</h2>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/blogposts">
+                        <h4>Blog Posts</h4>
                     </Link>
                 </div>
             </StyledNavContainer>

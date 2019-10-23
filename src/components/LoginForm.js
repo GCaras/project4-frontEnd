@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import useForm from '../hooks/useLoginFormHook'
 import validate from '../hooks/useEmailValidationRules'
 import styled from 'styled-components'
+import { UserContext } from '../context/UserContext'
+import { login } from "../utilities/login"
+
 
 const errorStyle = {
     color: 'red',
@@ -19,17 +22,35 @@ const StyledInputPiece = styled.div`
 `
 
 const LoginForm = () => {
+    const { usersArr } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+
+
+    //email validation & error display for form input
     const { values, errors, handleLoginChange, handleLoginSubmit } = useForm(login, validate)
 
-    function login() {
-        console.log(values)
-    }
+    // function login(email, password) {
+    //     email = values.email
+    //     password = values.password
+    //     const userLog = usersArr.find(user => user.email === email)
+    //     console.log(userLog)
+    //     if(userLog.password === password) {
+    //         console.log("Success!")
+    //     } else {
+    //         console.log("Incorrect username/password")
+    //     }
+    // }
 
     return (
         <div>
             <StyledLoginContainer>
             <form onSubmit={handleLoginSubmit}>
                 <h3>Login</h3>
+                <div>{JSON.stringify(user, null, 2)}</div>
+                <button 
+                    onClick={async () => {
+                    const user = await login(); 
+                    setUser(user)}}>TEST</button>
                 <StyledInputPiece>
                     <label>Email Address</label>
                     <div>
@@ -59,7 +80,18 @@ const LoginForm = () => {
                             />
                     </div>
                 </StyledInputPiece>
-                <button type="submit">Login</button>
+                {/* {user ? (
+                    <button 
+                        onClick={async () => {
+                            
+                        //call logout function
+                        setUser(null)
+                    }}>Logout</button> 
+                ) : ( 
+                    <button 
+                    onClick={async () => {
+                    var user = await login()
+                    setUser(user)}}>Login</button> )} */}
             </form>
             </StyledLoginContainer>
         </div>
