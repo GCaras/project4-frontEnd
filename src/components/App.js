@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { Route } from 'react-router-dom'
-import axios from 'axios'
 
-import { UserContext } from '../context/UserContext'
 import Navbar from '../components/Navbar'
 import SplashPage from '../components/Splashpage'
 import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
+import BlogPostList from './BlogPostList'
+import UserContext from '../context/UserContext'
 
 const StyledAppContainer =styled.main`
     align-items: center;
@@ -19,56 +19,36 @@ const StyledAppContainer =styled.main`
 
 const App = () => {
 
-    const [usersArr, setUsersArr] = useState(null);
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            const result = await axios.get('http://127.0.0.1:8000/anecdote/v1/users/');
-            console.log(result.data)
-            setUsersArr(result.data)
-        };
-        fetchUsers();
-        console.log(usersArr)
-    }, [])
-
-    const usersArrValue = useMemo(() => ({ usersArr, setUsersArr }), [usersArr, setUsersArr])
-
     const [user, setUser] = useState(null);
 
     const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const result = await axios.get(
-    //         'http://127.0.0.1:8000/anecdote/v1/users/')
-    //         .then(res => {console.log('Response', res.data)});
-    //         setUser(result);
-    //         console.log(user)
-    //     };
-    //     fetchData();
-    // }, []);
-
     return (
         <div>
-            <UserContext.Provider value={userValue, usersArrValue}>
+            <UserContext.Provider value={userValue}>
                 <Navbar />
-                    <StyledAppContainer>
-                        <Route
-                            path='/'
-                            exact
-                            render={SplashPage}
-                        />
-                        <Route
-                            path='/login'
-                            exact
-                            component={LoginForm}
-                        />
-                        <Route
-                            path='/register'
-                            exact
-                            component={RegistrationForm}
-                        />
-                    </StyledAppContainer>
+                <StyledAppContainer>
+                    <Route
+                        path='/'
+                        exact
+                        render={SplashPage}
+                    />
+                    <Route
+                        path='/login'
+                        exact
+                        component={LoginForm}
+                    />
+                    <Route
+                        path='/register'
+                        exact
+                        component={RegistrationForm}
+                    />
+                    <Route
+                        path='/bloglist'
+                        exact
+                        component={BlogPostList}
+                    />
+                </StyledAppContainer>
             </UserContext.Provider>
         </div>
     )

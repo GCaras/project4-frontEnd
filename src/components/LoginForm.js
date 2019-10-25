@@ -1,9 +1,10 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import useForm from '../hooks/useLoginFormHook'
 import validate from '../hooks/useEmailValidationRules'
 import styled from 'styled-components'
 import { UserContext } from '../context/UserContext'
-import { login } from "../utilities/login"
+import axios from 'axios'
+
 
 
 const errorStyle = {
@@ -21,36 +22,47 @@ const StyledInputPiece = styled.div`
     margin: 10px;
 `
 
-const LoginForm = () => {
-    const { usersArr } = useContext(UserContext);
-    const { user, setUser } = useContext(UserContext);
+const LoginForm = (props) => {
 
+    const { setUser } = useContext(UserContext);
 
+    const [usersArr, setUsersArr] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const result = await axios.get('http://127.0.0.1:8000/users/');
+            console.log(result.data)
+            setUsersArr(result.data)
+        };
+        fetchUsers();
+    }, [])
+
+    const login = (email, password) => {
+        email = values.email
+        password = values.password
+        const userLog = usersArr.find(user => user.email === email)
+        console.log(userLog)
+        if(userLog.password === password) {
+            setUser(userLog)
+            props.history.push("/bloglist")
+            console.log("Success!")
+        } else {
+            alert("Incorrect username/password")
+        }
+    }
+    
     //email validation & error display for form input
     const { values, errors, handleLoginChange, handleLoginSubmit } = useForm(login, validate)
 
-    // function login(email, password) {
-    //     email = values.email
-    //     password = values.password
-    //     const userLog = usersArr.find(user => user.email === email)
-    //     console.log(userLog)
-    //     if(userLog.password === password) {
-    //         console.log("Success!")
-    //     } else {
-    //         console.log("Incorrect username/password")
-    //     }
-    // }
+
+    
+
 
     return (
         <div>
             <StyledLoginContainer>
             <form onSubmit={handleLoginSubmit}>
                 <h3>Login</h3>
-                <div>{JSON.stringify(user, null, 2)}</div>
-                <button 
-                    onClick={async () => {
-                    const user = await login(); 
-                    setUser(user)}}>TEST</button>
                 <StyledInputPiece>
                     <label>Email Address</label>
                     <div>
@@ -80,19 +92,8 @@ const LoginForm = () => {
                             />
                     </div>
                 </StyledInputPiece>
-                {/* {user ? (
-                    <button 
-                        onClick={async () => {
-                            
-                        //call logout function
-                        setUser(null)
-                    }}>Logout</button> 
-                ) : ( 
-                    <button 
-                    onClick={async () => {
-                    var user = await login()
-                    setUser(user)}}>Login</button> )} */}
             </form>
+            <button onClick={login}>Login</button>
             </StyledLoginContainer>
         </div>
     );

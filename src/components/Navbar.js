@@ -22,11 +22,11 @@ const Navbar = () => {
                         <h2>dote</h2>
                     </Link>
                 </div>
-                <div>
+                {/* <div>
                     <Link to="/blogposts">
                         <h4>Blog Posts</h4>
                     </Link>
-                </div>
+                </div> */}
             </StyledNavContainer>
         </div>
     );
