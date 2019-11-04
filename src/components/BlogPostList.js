@@ -29,7 +29,7 @@ const BlogPostList = () => {
             <section>
                 {blogList.map((blog, i) => (
                 <StyledBlogItem key={i}>
-                    <Link to={'/blog/' + blog.id +'/'}>
+                    <Link to={'/bloglist/' + blog.id +'/'}>
                         <h3 >{blog.title}</h3>
                         <p>{blog.body}</p>
                     </Link>
