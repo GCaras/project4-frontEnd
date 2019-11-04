@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
+
+const StyledBlogItem = styled.article`
+    background-color: lightskyblue;
+    border: 2px solid black;
+    margin: 10px;
+    width: 50vw;
+`
 
 const BlogPostList = () => {
     
@@ -20,12 +28,12 @@ const BlogPostList = () => {
             <h2>Blog Posts</h2>
             <section>
                 {blogList.map((blog, i) => (
-                <div key={i}>
+                <StyledBlogItem key={i}>
                     <Link to={'/blog/' + blog.id +'/'}>
                         <h3 >{blog.title}</h3>
                         <p>{blog.body}</p>
                     </Link>
-                </div>
+                </StyledBlogItem>
                 ))}
             </section>
         </div>

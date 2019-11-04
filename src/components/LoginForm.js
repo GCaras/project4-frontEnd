@@ -41,13 +41,17 @@ const LoginForm = (props) => {
         email = values.email
         password = values.password
         const userLog = usersArr.find(user => user.email === email)
-        console.log(userLog)
-        if(userLog.password === password) {
-            setUser(userLog)
-            props.history.push("/bloglist")
-            console.log("Success!")
+        if (userLog === undefined) {
+            alert("Invalid username/password combination. Please try again");
         } else {
-            alert("Incorrect username/password")
+            console.log(userLog)
+            if(userLog.password === password) {
+                setUser(userLog)
+                props.history.push("/bloglist")
+                console.log("Success!")
+            } else {
+                alert("Invalid username/password combination. Please try again")
+            }
         }
     }
     

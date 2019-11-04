@@ -14,16 +14,19 @@ const StyledInputPiece = styled.div`
 
 const RegistrationForm = (props) => {
   const register = () => {
-    const user = {
-      username: values.email,
+    axios.post("http://127.0.0.1:8000/users/", {
+      username: values.username,
       email: values.email,
       password: values.password
-    };
-    axios
-      .post("http://127.0.0.1:8000/users/", { user })
-      .then(res => console.log(res));
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
       props.history.push("/login")
-  };
+  }
 
   const {
     values,
