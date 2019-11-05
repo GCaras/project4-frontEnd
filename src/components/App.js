@@ -8,6 +8,7 @@ import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
 import BlogPostList from './BlogPostList'
 import BlogPostDetail from './BlogPostDetail'
+import NewBlogPost from './NewBlogPost'
 import UserContext from '../context/UserContext'
 
 const StyledAppContainer =styled.main`
@@ -66,6 +67,11 @@ const App = () => {
                         path='/bloglist/:id'
                         exact
                         render={props => <BlogPostDetail blogList={blogList} {...props}/>}
+                    />
+                    <Route
+                        path='/newPost'
+                        exact
+                        render={props => <NewBlogPost {...props}/>}
                     />
                 </StyledAppContainer>
             </UserContext.Provider>

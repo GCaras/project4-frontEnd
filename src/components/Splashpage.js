@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from 'styled-components'
+import BlogPostList from './BlogPostList'
 
 const StyledButtonContainer = styled.section`
     align-items: center;
@@ -25,12 +26,7 @@ const SplashPage = () => {
                 <StyledButtonContainer>
                     <h3>Connect to your favorite story-tellers</h3>
                     <p>Splash page for Dote app.</p>
-                    <StyledClickH2>
-                        <Link to="/login">Log In</Link>
-                    </StyledClickH2>
-                    <StyledClickH2>
-                        <Link to="/register">Register</Link>
-                    </StyledClickH2>
+                    <BlogPostList/>
                 </StyledButtonContainer>
             </div>
         </div>
